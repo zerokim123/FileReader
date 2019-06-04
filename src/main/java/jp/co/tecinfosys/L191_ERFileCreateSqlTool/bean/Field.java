@@ -20,6 +20,9 @@ public class Field {
 	/** デフォルト値 */
 	private String columnDefaultValue;
 
+	/** コメント説明 */
+	private String columnComment;
+
 	public String getColumnPName() {
 		return columnPName;
 	}
@@ -67,5 +70,13 @@ public class Field {
 	public void setColumnDefaultValue(String columnDefaultValue) {
 		this.columnDefaultValue = columnDefaultValue;
 	}
+
+    public String getColumnComment() {
+        return columnComment;
+    }
+
+    public void setColumnComment(String columnComment) {
+        this.columnComment = columnComment;
+    }
 
 }
