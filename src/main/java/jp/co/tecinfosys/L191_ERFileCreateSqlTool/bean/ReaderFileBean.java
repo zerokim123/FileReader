@@ -38,4 +38,17 @@ public class ReaderFileBean implements java.io.Serializable {
         this.relationInfo = relationInfo;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("ReaderFileBean [isError=");
+        builder.append(isError);
+        builder.append(", entityInfo=");
+        builder.append(entityInfo);
+        builder.append(", relationInfo=");
+        builder.append(relationInfo);
+        builder.append("]");
+        return builder.toString();
+    }
+
 }
