@@ -57,4 +57,36 @@ public class Relation {
 		Caption = caption;
 	}
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Relation [");
+        if (Entity1 != null) {
+            builder.append("Entity1=");
+            builder.append(Entity1);
+            builder.append(", ");
+        }
+        if (Entity2 != null) {
+            builder.append("Entity2=");
+            builder.append(Entity2);
+            builder.append(", ");
+        }
+        if (Fields1 != null) {
+            builder.append("Fields1=");
+            builder.append(Fields1);
+            builder.append(", ");
+        }
+        if (Fields2 != null) {
+            builder.append("Fields2=");
+            builder.append(Fields2);
+            builder.append(", ");
+        }
+        if (Caption != null) {
+            builder.append("Caption=");
+            builder.append(Caption);
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
 }

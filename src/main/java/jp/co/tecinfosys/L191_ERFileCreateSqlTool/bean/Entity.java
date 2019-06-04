@@ -59,4 +59,36 @@ public class Entity {
         NoDDL = noDDL;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Entity [");
+        if (tablePName != null) {
+            builder.append("tablePName=");
+            builder.append(tablePName);
+            builder.append(", ");
+        }
+        if (tableLName != null) {
+            builder.append("tableLName=");
+            builder.append(tableLName);
+            builder.append(", ");
+        }
+        if (tableOption != null) {
+            builder.append("tableOption=");
+            builder.append(tableOption);
+            builder.append(", ");
+        }
+        if (fieldList != null) {
+            builder.append("fieldList=");
+            builder.append(fieldList);
+            builder.append(", ");
+        }
+        if (NoDDL != null) {
+            builder.append("NoDDL=");
+            builder.append(NoDDL);
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
 }

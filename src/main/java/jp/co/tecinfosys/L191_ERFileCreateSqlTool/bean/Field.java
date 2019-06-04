@@ -79,4 +79,46 @@ public class Field {
         this.columnComment = columnComment;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Field [");
+        if (columnPName != null) {
+            builder.append("columnPName=");
+            builder.append(columnPName);
+            builder.append(", ");
+        }
+        if (columnLName != null) {
+            builder.append("columnLName=");
+            builder.append(columnLName);
+            builder.append(", ");
+        }
+        if (columnType != null) {
+            builder.append("columnType=");
+            builder.append(columnType);
+            builder.append(", ");
+        }
+        if (columnNULL != null) {
+            builder.append("columnNULL=");
+            builder.append(columnNULL);
+            builder.append(", ");
+        }
+        if (columnPriKey != null) {
+            builder.append("columnPriKey=");
+            builder.append(columnPriKey);
+            builder.append(", ");
+        }
+        if (columnDefaultValue != null) {
+            builder.append("columnDefaultValue=");
+            builder.append(columnDefaultValue);
+            builder.append(", ");
+        }
+        if (columnComment != null) {
+            builder.append("columnComment=");
+            builder.append(columnComment);
+        }
+        builder.append("]");
+        return builder.toString();
+    }
+
 }
