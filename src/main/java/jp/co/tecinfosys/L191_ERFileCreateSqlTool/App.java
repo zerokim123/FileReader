@@ -7,7 +7,7 @@ import jp.co.tecinfosys.L191_ERFileCreateSqlTool.utils.FileReaderUtil;
  * Hello world!
  *
  */
-public class App 
+public class App
 {
     private static final String PATH = "C:/Temp/testFile/MYA32240.10.85.00.Ｅ_会計2_L19.a5er";
     public static void main( String[] args )
