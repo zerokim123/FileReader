@@ -37,16 +37,8 @@ public class WriteFileUtil {
             // PrintWriterクラスのオブジェクトを生成する
             PrintWriter pw = new PrintWriter(new BufferedWriter(file));
 
-            byte[] b = body.getBytes();
-
-            //文字コードをShift-JISに変換する
-            body = new String(b, "Shift-JIS");
-
-            //ファイルに書き込む
-            pw.println(body);
-
             // ファイルに書き込む
-            pw.println(body);
+            pw.println(StringEncoder.utf8ToSjis(body));
 
             // ファイルを閉じる
             pw.close();
