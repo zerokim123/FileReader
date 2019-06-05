@@ -6,6 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.apache.commons.lang3.StringUtils;
+
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.Const.ConstantCls;
+
 public class WriteFileUtil {
 
     public static boolean existenceCheck(String fullPath) {
@@ -21,8 +25,15 @@ public class WriteFileUtil {
         boolean writeFile = false;
 
         try {
+
+            boolean fileCheck = existenceCheck(fullPath);
+
+            if (!fileCheck) {
+                body =  StringUtils.join(ConstantCls.STR_SQL_HEADER , body);
+            }
+
             // FileWriterクラスのオブジェクトを生成する
-            FileWriter file = new FileWriter(fullPath, existenceCheck(fullPath));
+            FileWriter file = new FileWriter(fullPath, fileCheck);
             // PrintWriterクラスのオブジェクトを生成する
             PrintWriter pw = new PrintWriter(new BufferedWriter(file));
 

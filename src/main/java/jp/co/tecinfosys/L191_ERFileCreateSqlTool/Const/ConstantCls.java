@@ -51,8 +51,15 @@ public class ConstantCls {
     public final static String RELATION_CA = "  on delete no action\r\n" + "  on update no action;\r\nEND\r\n" + "GO\r\n";
     public final static String RELATION_NA = "  on delete CASCADE\r\n" + "  on update CASCADE;\r\nEND\r\n" + "GO\r\n";
 
-
-
-
+    public final static String STR_SQL_HEADER =
+            "----------------------------------------------------------------------------------------\r\n" +
+            "-- 開発履歴\r\n" +
+            "----------------------------------------------------------------------------------------\r\n" +
+            "-- [Create]\r\n" +
+            "-- DATE:2014/07/18\r\n" +
+            "-- NAME:T.Sano(OFM)\r\n" +
+            "----------------------------------------------------------------------------------------\r\n" +
+            "USE SX\r\n" +
+            "GO\r\n";
 
 }
