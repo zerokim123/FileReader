@@ -110,7 +110,7 @@ public class FileReaderUtil {
 
     }
 
-    public static List<RelationBean> relation(List<List<String>> relationInfo) {
+    private static List<RelationBean> relation(List<List<String>> relationInfo) {
 
         List<RelationBean> relation = new ArrayList<RelationBean>();
 
