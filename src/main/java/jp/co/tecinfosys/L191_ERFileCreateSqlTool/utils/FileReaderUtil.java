@@ -9,11 +9,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.ReaderFileBean;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.RelationBean;
 
 public class FileReaderUtil {
 
@@ -93,7 +95,8 @@ public class FileReaderUtil {
                 }
                 readerFileBean.setError(false);
                 readerFileBean.setEntityInfo(entityInfo);
-                readerFileBean.setRelationInfo(relationInfo);
+
+                readerFileBean.setRelationInfo(relation(relationInfo));
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -104,6 +107,45 @@ public class FileReaderUtil {
         }
 
         return readerFileBean;
+
+    }
+
+    private static List<RelationBean> relation(List<List<String>> relationInfo) {
+
+        List<RelationBean> relation = new ArrayList<RelationBean>();
+
+        for (List<String>wkList : relationInfo) {
+            RelationBean wkRelation = new RelationBean();
+
+            for(String wkStr : wkList){
+
+                List<String> wkStrList = Arrays.asList(wkStr.split("="));
+
+                switch (wkStrList.get(0)) {
+                case "Entity1":
+                    wkRelation.setEntity1(wkStrList.get(1));
+                    break;
+                case "Entity2":
+                    wkRelation.setEntity2(wkStrList.get(1));
+                    break;
+                case "Fields1":
+                    wkRelation.setFields1(wkStrList.get(1));
+                    break;
+                case "Fields2":
+                    wkRelation.setFields2(wkStrList.get(1));
+                    break;
+                case "Caption":
+                    wkRelation.setCaption(wkStrList.get(1));
+                    break;
+                default:
+                }
+            }
+
+            relation.add(wkRelation);
+
+        }
+
+        return relation;
 
     }
 

@@ -1,6 +1,6 @@
 package jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean;
 
-public class Relation {
+public class RelationBean {
 
 	/** 関連テーブル１ */
 	private String Entity1;

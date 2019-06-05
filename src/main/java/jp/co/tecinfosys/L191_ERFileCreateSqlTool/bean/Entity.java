@@ -16,6 +16,9 @@ public class Entity {
 	/** テーブルカラムリスト */
 	private List<Field> fieldList;
 
+	/** テーブルIndexリスト */
+	private List<Index> indexList;
+
 	/** DDL作成不要フラグ */
 	private String NoDDL;
 
@@ -51,13 +54,21 @@ public class Entity {
 		this.fieldList = fieldList;
 	}
 
-    public String getNoDDL() {
-        return NoDDL;
-    }
+	public List<Index> getIndexList() {
+	    return indexList;
+	}
 
-    public void setNoDDL(String noDDL) {
-        NoDDL = noDDL;
-    }
+	public void setIndexList(List<Index> indexList) {
+	    this.indexList = indexList;
+	}
+
+        public String getNoDDL() {
+            return NoDDL;
+        }
+
+        public void setNoDDL(String noDDL) {
+            NoDDL = noDDL;
+        }
 
     @Override
     public String toString() {
@@ -83,6 +94,11 @@ public class Entity {
             builder.append(fieldList);
             builder.append(", ");
         }
+        if (indexList != null) {
+            builder.append("indexList=");
+            builder.append(indexList);
+            builder.append(", ");
+        }
         if (NoDDL != null) {
             builder.append("NoDDL=");
             builder.append(NoDDL);
@@ -90,5 +106,7 @@ public class Entity {
         builder.append("]");
         return builder.toString();
     }
+
+
 
 }

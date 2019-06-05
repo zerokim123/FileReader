@@ -26,6 +26,8 @@ public class App
         List<Entity> entityList = new ArrayList<Entity>();
 
         entityList = BeanListCreateUtil.createRelationList(bean.getEntityInfo());
+        
+        
 
         System.out.println(bean.toString());
 
