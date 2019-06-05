@@ -36,7 +36,6 @@ public class WriteFileUtil {
             FileWriter file = new FileWriter(fullPath, fileCheck);
             // PrintWriterクラスのオブジェクトを生成する
             PrintWriter pw = new PrintWriter(new BufferedWriter(file));
-
             // ファイルに書き込む
             pw.println(StringEncoder.utf8ToSjis(body));
 

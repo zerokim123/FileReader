@@ -6,9 +6,9 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.Const.ConstantCls;
-import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Entity;
-import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Field;
-import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Index;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.EntityBean;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.FieldBean;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.IndexBean;
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.RelationBean;
 
 public class BeanListCreateUtil {
@@ -16,20 +16,20 @@ public class BeanListCreateUtil {
 
 
 
-    public static List<Entity> createRelationList(List<List<String>> strList) {
+    public static List<EntityBean> createTableList(List<List<String>> strList) {
 
-        List<Entity> entityList = new ArrayList<Entity>();
+        List<EntityBean> entityList = new ArrayList<EntityBean>();
 
         for (List<String> strListEntity : strList) {
 
-            Entity entity = new Entity();
-            List<Field> fieldList = new ArrayList<Field>();
-            List<Index> indexList = new ArrayList<Index>();
+            EntityBean entity = new EntityBean();
+            List<FieldBean> fieldList = new ArrayList<FieldBean>();
+            List<IndexBean> indexList = new ArrayList<IndexBean>();
 
             for (String str : strListEntity) {
 
-                Field field = new Field();
-                Index index = new Index();
+                FieldBean field = new FieldBean();
+                IndexBean index = new IndexBean();
                 int indexEquals = StringUtils.indexOf(str, ConstantCls.STR_EQUALS);
                 String key = StringUtils.substring(str, 0, indexEquals);
                 String value = StringUtils.substring(str, indexEquals+1);
@@ -51,7 +51,7 @@ public class BeanListCreateUtil {
                     field.setColumnType(fields[2]);
                     field.setColumnNULL(fields[3]);
                     field.setColumnPriKey(fields[4]);
-                    field.setColumnDefaultValue(fields[5]);
+                    field.setColumnDefaultValue(StringUtils.replace(fields[5], "\\q", ConstantCls.STR_S_QUOTATION));
                     field.setColumnComment(fields[6]);
                     fieldList.add(field);
                     continue;
@@ -81,7 +81,7 @@ public class BeanListCreateUtil {
     }
 
 
-    public static List<RelationBean> createEntityList(List<Entity> entityList, List<List<String>> strList) {
+    public static List<RelationBean> createEntityList(List<EntityBean> entityList, List<List<String>> strList) {
 
 
         return null;

@@ -1,6 +1,6 @@
 package jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean;
 
-public class Field {
+public class FieldBean {
 
 	/** カラム物理名 */
 	private String columnPName;
