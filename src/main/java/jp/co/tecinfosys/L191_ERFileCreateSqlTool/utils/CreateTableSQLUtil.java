@@ -99,7 +99,7 @@ public class CreateTableSQLUtil {
     public static String strSqlLast(String tableOption, String tablePName, String tableLName) {
         StringBuilder builder = new StringBuilder();
 
-        if(StringUtils.isBlank(tableOption)) {
+        if(StringUtils.isNotBlank(tableOption)) {
             builder.append(StringUtils.replace(tableOption, "\\n", "\r\n").replace("\\q", ConstantCls.STR_S_QUOTATION));
             builder.append(";\r\nGO\r\n");
         }else {

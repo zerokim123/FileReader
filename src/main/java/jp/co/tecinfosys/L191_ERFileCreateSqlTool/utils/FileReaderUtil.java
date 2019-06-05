@@ -34,8 +34,6 @@ public class FileReaderUtil {
 
             List<List<String>> relationInfo = new ArrayList<>();
 
-            int rederLine = 0;
-
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
 
@@ -48,19 +46,19 @@ public class FileReaderUtil {
                 while ((str = reader.readLine()) != null) {
 
                     if (str.equals("[Entity]")) {
-                        rederLine = 0;
+
                         skip = false;
 
                         readerType = "Entity";
 
                     } else if (str.equals("[Relation]")) {
-                        rederLine = 0;
+
                         skip = false;
                         readerType = "Relation";
 
                     } else if (StringUtils.isBlank(str)) {
 
-                        rederLine = 0;
+                        skip = true;
 
                         if (entityLines.size() != 0) {
 
@@ -77,7 +75,7 @@ public class FileReaderUtil {
                         relationLines = new ArrayList<>();
                     }
 
-                    if (!skip && rederLine != 0) {
+                    if (!skip) {
 
                         if (StringUtils.equals(readerType, "Entity")) {
 
@@ -89,8 +87,6 @@ public class FileReaderUtil {
                         }
 
                     }
-
-                    rederLine = rederLine + 1;
 
                 }
                 readerFileBean.setError(false);
@@ -135,7 +131,7 @@ public class FileReaderUtil {
                     wkRelation.setFields2(wkStrList.get(1));
                     break;
                 case "Caption":
-                    wkRelation.setCaption(wkStrList.get(1));
+                    wkRelation.setCaption(wkStrList.size()==2 ? wkStrList.get(1) : "");
                     break;
                 default:
                 }
