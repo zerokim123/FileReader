@@ -2,8 +2,9 @@ package jp.co.tecinfosys.L191_ERFileCreateSqlTool.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 import org.apache.commons.lang3.StringUtils;
@@ -32,12 +33,9 @@ public class WriteFileUtil {
                 body =  StringUtils.join(ConstantCls.STR_SQL_HEADER , body);
             }
 
-            // FileWriterクラスのオブジェクトを生成する
-            FileWriter file = new FileWriter(fullPath, fileCheck);
-            // PrintWriterクラスのオブジェクトを生成する
-            PrintWriter pw = new PrintWriter(new BufferedWriter(file));
             // ファイルに書き込む
-            pw.println(StringEncoder.utf8ToSjis(body));
+            PrintWriter pw = new PrintWriter(new BufferedWriter
+                    (new OutputStreamWriter(new FileOutputStream(fullPath,fileCheck),"Shift-JIS")));
 
             // ファイルを閉じる
             pw.close();
