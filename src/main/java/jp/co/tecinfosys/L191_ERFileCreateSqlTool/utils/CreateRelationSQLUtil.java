@@ -45,8 +45,8 @@ public class CreateRelationSQLUtil {
 
     private static String createName (String entity1, String entity2) {
 
-        List<String> wkStrentity1 = Arrays.asList(entity1.split("$"));
-        List<String> wkStrentity2 = Arrays.asList(entity2.split("$"));
+        List<String> wkStrentity1 = Arrays.asList(entity1.split("[$]"));
+        List<String> wkStrentity2 = Arrays.asList(entity2.split("[$]"));
         StringBuilder builderName = new StringBuilder();
         builderName.append("FK$");
         builderName.append(wkStrentity2.get(0));
