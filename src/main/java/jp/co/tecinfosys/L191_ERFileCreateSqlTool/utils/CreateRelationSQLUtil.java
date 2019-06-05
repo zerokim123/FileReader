@@ -16,7 +16,8 @@ public class CreateRelationSQLUtil {
 
         builder.append("IF NOT EXISTS(SELECT * FROM sysobjects WHERE name = '");
         builder.append(fkName);
-        builder.append("' AND type = 'F')");
+        builder.append("' AND type = 'F')\r\n");
+        builder.append("BEGIN\r\n");
         builder.append("alter table [");
         builder.append(relationBean.getEntity2());
         builder.append("]\r\n");
@@ -27,7 +28,7 @@ public class CreateRelationSQLUtil {
         builder.append(relationBean.getFields2());
         builder.append(") references [");
         builder.append(relationBean.getEntity1());
-        builder.append("] (");
+        builder.append("](");
         builder.append(relationBean.getFields1());
         builder.append(")\r\n");
 

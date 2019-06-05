@@ -1,6 +1,6 @@
 package jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean;
 
-public class Index {
+public class IndexBean {
 
 	/** Index物理名 */
 	private String indexPName;

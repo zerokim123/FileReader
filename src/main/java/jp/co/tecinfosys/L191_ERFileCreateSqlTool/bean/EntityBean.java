@@ -2,7 +2,7 @@ package jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean;
 
 import java.util.List;
 
-public class Entity {
+public class EntityBean {
 
 	/** テーブル物理名 */
 	private String tablePName;
@@ -14,10 +14,10 @@ public class Entity {
 	private String tableOption;
 
 	/** テーブルカラムリスト */
-	private List<Field> fieldList;
+	private List<FieldBean> fieldList;
 
 	/** テーブルIndexリスト */
-	private List<Index> indexList;
+	private List<IndexBean> indexList;
 
 	/** DDL作成不要フラグ */
 	private String NoDDL;
@@ -46,19 +46,19 @@ public class Entity {
 		this.tableOption = tableOption;
 	}
 
-	public List<Field> getFieldList() {
+	public List<FieldBean> getFieldList() {
 		return fieldList;
 	}
 
-	public void setFieldList(List<Field> fieldList) {
+	public void setFieldList(List<FieldBean> fieldList) {
 		this.fieldList = fieldList;
 	}
 
-	public List<Index> getIndexList() {
+	public List<IndexBean> getIndexList() {
 	    return indexList;
 	}
 
-	public void setIndexList(List<Index> indexList) {
+	public void setIndexList(List<IndexBean> indexList) {
 	    this.indexList = indexList;
 	}
 

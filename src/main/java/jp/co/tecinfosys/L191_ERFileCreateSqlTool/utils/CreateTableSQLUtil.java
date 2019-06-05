@@ -6,49 +6,50 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.Const.ConstantCls;
-import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Entity;
-import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Field;
-import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Index;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.EntityBean;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.FieldBean;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.IndexBean;
 
 
 public class CreateTableSQLUtil {
 
-    public static String body(Entity e) {
-
-        String sql = ConstantCls.STR_TB_SQL_FORMAT;
+    public static String body(EntityBean e) {
 
         String strColumns = strColumns(e.getTablePName(), e.getFieldList());
 
         String strIndexs = strIndexs(e.getTablePName(), e.getIndexList());
 
+        String strSqlLast = strSqlLast(e.getTableOption(), e.getTablePName(), e.getTableLName());
+
         StringBuilder builder = new StringBuilder();
         builder.append("IF NOT EXISTS(SELECT * FROM sysobjects WHERE name = '");
         builder.append(e.getTablePName());
-        builder.append("' AND type = 'U')\r\nBEGIN\r\n");
-        builder.append("        create table [");
+        builder.append("' AND type = 'U')\r\n");
+        builder.append("BEGIN\r\n");
+        builder.append("create table [");
         builder.append(e.getTablePName());
         builder.append("] (\r\n");
-        builder.append("          " + strColumns);
-        builder.append("        )\r\nEND\r\nGO");
+        builder.append("  " + strColumns);
+        builder.append(")\r\nEND\r\nGO\r\n");
 
         builder.append(StringUtils.isBlank(strIndexs)? "" : strIndexs);
 
-        builder.append(StringUtils.isBlank(e.getTableOption())? "" : e.getTableOption());
+        builder.append(strSqlLast);
 
-        return sql;
+        return builder.toString();
     }
 
-    public static String strColumns(String tablePName, List<Field> fieldList) {
+    public static String strColumns(String tablePName, List<FieldBean> fieldList) {
         StringBuilder builder = new StringBuilder();
         String priKeys = "";
 
-        for (Field f : fieldList) {
+        for (FieldBean f : fieldList) {
             builder.append(f.getColumnPName() + " ");
             builder.append(f.getColumnType() + " ");
-            builder.append(StringUtils.isBlank(f.getColumnDefaultValue())? "" : " default " + (f.getColumnDefaultValue() + " "));
+            builder.append(StringUtils.isBlank(f.getColumnDefaultValue())? "" : "default " + (f.getColumnDefaultValue() + " "));
             builder.append(StringUtils.isBlank(f.getColumnNULL())? "" : f.getColumnNULL());
-            builder.append("\r\n      , ");
-            priKeys = priKeys + (StringUtils.isBlank(f.getColumnPriKey())? "" : (f.getColumnPName() + ","));
+            builder.append("\r\n  , ");
+            priKeys = priKeys + (StringUtils.isBlank(f.getColumnPriKey())? "" : (f.getColumnPName() + ConstantCls.STR_COMMA));
         }
 
         if(!priKeys.contentEquals("")) {
@@ -63,15 +64,15 @@ public class CreateTableSQLUtil {
         }
     }
 
-    public static String strIndexs(String tablePName, List<Index> indexList) {
+    public static String strIndexs(String tablePName, List<IndexBean> indexList) {
         StringBuilder builder = new StringBuilder();
 
         if(indexList != null && indexList.size() > 0) {
-            for(Index i : indexList) {
+            for(IndexBean i : indexList) {
                 builder.append("IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = '");
                 builder.append(i.getIndexPName());
-                builder.append(")\r\nBEGIN\r\n");
-                builder.append("    create");
+                builder.append("')\r\nBEGIN\r\n");
+                builder.append("create");
                 switch (i.getIndexType()) {
                 case "0":
                     builder.append(" index ");
@@ -84,7 +85,7 @@ public class CreateTableSQLUtil {
                     break;
                 }
                 builder.append(i.getIndexPName());
-                builder.append("\r\n    on [");
+                builder.append("\r\n  on [");
                 builder.append(tablePName);
                 builder.append("](");
                 builder.append(i.getIndexColumn());
@@ -92,6 +93,25 @@ public class CreateTableSQLUtil {
                 builder.append("END\r\nGO\r\n");
             }
         }
+        return builder.toString();
+    }
+
+    public static String strSqlLast(String tableOption, String tablePName, String tableLName) {
+        StringBuilder builder = new StringBuilder();
+
+        if(StringUtils.isBlank(tableOption)) {
+            builder.append(StringUtils.replace(tableOption, "\\n", "\r\n").replace("\\q", ConstantCls.STR_S_QUOTATION));
+            builder.append(";\r\nGO\r\n");
+        }else {
+            builder.append(ConstantCls.STR_TB_OPTION_START);
+            builder.append("SELECT   @SchemaName        = N'dbo'        ,@TableName         = N'");
+            builder.append(tablePName);
+            builder.append("'        ,@TableLogicalName  = N'");
+            builder.append(tableLName);
+            builder.append("'\r\n");
+            builder.append(ConstantCls.STR_TB_OPTION_END);
+        }
+
         return builder.toString();
     }
 
