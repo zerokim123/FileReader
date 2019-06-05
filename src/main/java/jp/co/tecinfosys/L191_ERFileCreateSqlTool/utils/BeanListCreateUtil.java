@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.Const.ConstantCls;
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Entity;
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Field;
-import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.Relation;
+import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.RelationBean;
 
 public class BeanListCreateUtil {
 
@@ -69,7 +69,7 @@ public class BeanListCreateUtil {
     }
 
 
-    public static List<Relation> createEntityList(List<Entity> entityList, List<List<String>> strList) {
+    public static List<RelationBean> createEntityList(List<Entity> entityList, List<List<String>> strList) {
 
 
         return null;

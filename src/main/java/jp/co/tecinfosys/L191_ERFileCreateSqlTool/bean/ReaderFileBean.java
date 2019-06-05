@@ -8,7 +8,7 @@ public class ReaderFileBean implements java.io.Serializable {
 
     private List<List<String>> entityInfo = null;
 
-    private List<List<String>>  relationInfo = null;
+    private List<RelationBean> relationInfo = null;
 
     public ReaderFileBean() {
 
@@ -30,11 +30,11 @@ public class ReaderFileBean implements java.io.Serializable {
         this.entityInfo = entityInfo;
     }
 
-    public List<List<String>> getRelationInfo() {
+    public List<RelationBean> getRelationInfo() {
         return relationInfo;
     }
 
-    public void setRelationInfo(List<List<String>>  relationInfo) {
+    public void setRelationInfo(List<RelationBean>  relationInfo) {
         this.relationInfo = relationInfo;
     }
 
