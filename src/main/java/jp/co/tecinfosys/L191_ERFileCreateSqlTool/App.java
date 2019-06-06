@@ -49,7 +49,7 @@ public class App
             for(EntityBean e : entityList) {
                 String fileName = StringUtils.replace(e.getTablePName(), ConstantCls.STR_DOLLAR_MARK, ConstantCls.STR_UNDERBAR) + ConstantCls.STR_SQL_EXTENSION;
                 String creatTbSql = CreateTableSQLUtil.body(e);
-                System.out.println(creatTbSql);
+//                System.out.println(creatTbSql);
                 WriteFileUtil.writeFile(toPath+fileName, creatTbSql);
                 createTBList.add(e.getTablePName());
             }
@@ -58,14 +58,14 @@ public class App
                 if(createTBList.indexOf(r.getEntity2()) != -1) {
                     String fileName = "Relation_" + StringUtils.replace(r.getEntity2(), ConstantCls.STR_DOLLAR_MARK, ConstantCls.STR_UNDERBAR) + ConstantCls.STR_SQL_EXTENSION;
                     String creatRelationSql = CreateRelationSQLUtil.body(r);
-                    System.out.println(creatRelationSql);
+//                    System.out.println(creatRelationSql);
                     WriteFileUtil.writeFile(toPath+fileName, creatRelationSql);
                 }
             }
 
-            System.out.println(bean.toString());
+//            System.out.println(bean.toString());
 
-            System.out.println(entityList.toString());
+//            System.out.println(entityList.toString());
         }
 
     }

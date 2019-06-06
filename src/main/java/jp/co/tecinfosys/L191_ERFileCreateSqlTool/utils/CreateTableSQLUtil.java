@@ -2,6 +2,7 @@ package jp.co.tecinfosys.L191_ERFileCreateSqlTool.utils;
 
 
 import java.util.List;
+import java.util.TreeMap;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,7 +42,7 @@ public class CreateTableSQLUtil {
 
     public static String strColumns(String tablePName, List<FieldBean> fieldList) {
         StringBuilder builder = new StringBuilder();
-        String priKeys = "";
+        TreeMap<Integer, String> priKeyMap = new TreeMap<Integer, String>();
 
         for (FieldBean f : fieldList) {
             builder.append(f.getColumnPName() + " ");
@@ -49,14 +50,18 @@ public class CreateTableSQLUtil {
             builder.append(StringUtils.isBlank(f.getColumnDefaultValue())? "" : "default " + (f.getColumnDefaultValue() + " "));
             builder.append(StringUtils.isBlank(f.getColumnNULL())? "" : f.getColumnNULL());
             builder.append("\r\n  , ");
-            priKeys = priKeys + (StringUtils.isBlank(f.getColumnPriKey())? "" : (f.getColumnPName() + ConstantCls.STR_COMMA));
+            if (StringUtils.isNotBlank(f.getColumnPriKey())) {
+                priKeyMap.put(Integer.parseInt(f.getColumnPriKey()), f.getColumnPName());
+            }
         }
 
-        if(!priKeys.contentEquals("")) {
+        if(priKeyMap != null && priKeyMap.size() > 0) {
             builder.append("constraint [PK");
             builder.append(tablePName);
             builder.append("] primary key (");
-            builder.append(StringUtils.substringBeforeLast(priKeys, ConstantCls.STR_COMMA));
+            for (int i=0; i<priKeyMap.size(); i++) {
+                builder.append(priKeyMap.get(i) + (i == priKeyMap.size()-1? "" : ConstantCls.STR_COMMA));
+            }
             builder.append(")\r\n");
             return builder.toString();
         } else {
