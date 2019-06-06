@@ -22,17 +22,17 @@ import jp.co.tecinfosys.L191_ERFileCreateSqlTool.utils.WriteFileUtil;
  */
 public class App
 {
-    private static final String PATH = "C:\\Temp\\testFile\\MYA32240.10.85.00.Ｅ_会計1.a5er";
-
-    private static final String targetPath = "C:\\Temp\\outFile\\";
+//    private static final String PATH = "C:\\Temp\\testFile\\MYA32240.10.85.00.Ｅ_会計1_L19.a5er";
+//
+//    private static final String targetPath = "C:\\Temp\\outFile\\";
 
     public static void main( String[] args )
     {
 
-//        String fromPath = args[0];
-//        String toPath = args[1];
+        String fromPath = args[0];
+        String toPath = args[1];
 
-        List<String> fileList = getFileList(PATH);
+        List<String> fileList = getFileList(fromPath);
 
         for(String f : fileList) {
             ReaderFileBean bean = new ReaderFileBean();
@@ -50,7 +50,7 @@ public class App
                 String fileName = StringUtils.replace(e.getTablePName(), ConstantCls.STR_DOLLAR_MARK, ConstantCls.STR_UNDERBAR) + ConstantCls.STR_SQL_EXTENSION;
                 String creatTbSql = CreateTableSQLUtil.body(e);
                 System.out.println(creatTbSql);
-                WriteFileUtil.writeFile(targetPath+fileName, creatTbSql);
+                WriteFileUtil.writeFile(toPath+fileName, creatTbSql);
                 createTBList.add(e.getTablePName());
             }
 
@@ -59,7 +59,7 @@ public class App
                     String fileName = "Relation_" + StringUtils.replace(r.getEntity2(), ConstantCls.STR_DOLLAR_MARK, ConstantCls.STR_UNDERBAR) + ConstantCls.STR_SQL_EXTENSION;
                     String creatRelationSql = CreateRelationSQLUtil.body(r);
                     System.out.println(creatRelationSql);
-                    WriteFileUtil.writeFile(targetPath+fileName, creatRelationSql);
+                    WriteFileUtil.writeFile(toPath+fileName, creatRelationSql);
                 }
             }
 
