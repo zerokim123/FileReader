@@ -77,7 +77,14 @@ public class JFrameStart extends JFrame implements ActionListener {
     }
 
     public void actionPerformed1() {
-        JFileChooser filechooser = new JFileChooser("c:¥¥");
+
+        JFileChooser filechooser = new JFileChooser("");
+
+        if(StringUtils.isNotBlank(fromPath.getText())) {
+            filechooser = new JFileChooser(fromPath.getText());
+        } else {
+            filechooser = new JFileChooser("C:\\");
+        }
         filechooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
         int selected = filechooser.showSaveDialog(this);
@@ -88,7 +95,14 @@ public class JFrameStart extends JFrame implements ActionListener {
     }
 
     public void actionPerformed2() {
-        JFileChooser filechooser = new JFileChooser("c:¥¥");
+
+        JFileChooser filechooser = new JFileChooser("");
+
+        if(StringUtils.isNotBlank(toPath.getText())) {
+            filechooser = new JFileChooser(toPath.getText());
+        } else {
+            filechooser = new JFileChooser("C:\\");
+        }
         filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
         int selected = filechooser.showSaveDialog(this);
@@ -108,7 +122,7 @@ public class JFrameStart extends JFrame implements ActionListener {
             String[] args = new String[] {strFromPath, strToPath};
             App.main(args);
         }else {
-            JOptionPane.showMessageDialog(null, "FromとToを入力してください。","エラー",2);
+            JOptionPane.showMessageDialog(null, "FromとToを入力してください。","エラー",0);
         }
     }
 
