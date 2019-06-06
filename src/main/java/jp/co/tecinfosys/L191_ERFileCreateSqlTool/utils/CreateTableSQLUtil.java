@@ -30,7 +30,7 @@ public class CreateTableSQLUtil {
         builder.append(e.getTablePName());
         builder.append("] (\r\n");
         builder.append("  " + strColumns);
-        builder.append(")\r\nEND\r\nGO\r\n");
+        builder.append(");\r\nEND\r\nGO\r\n");
 
         builder.append(StringUtils.isBlank(strIndexs)? "" : strIndexs);
 
