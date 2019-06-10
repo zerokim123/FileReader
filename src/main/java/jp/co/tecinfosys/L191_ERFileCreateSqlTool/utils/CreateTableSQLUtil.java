@@ -26,12 +26,12 @@ public class CreateTableSQLUtil {
         builder.append("IF NOT EXISTS(SELECT * FROM sysobjects WHERE name = '");
         builder.append(e.getTablePName());
         builder.append("' AND type = 'U')\r\n");
-        builder.append("BEGIN\r\n");
+        builder.append("BEGIN\r\n\r\n");
         builder.append("create table [");
         builder.append(e.getTablePName());
         builder.append("] (\r\n");
         builder.append("  " + strColumns);
-        builder.append(");\r\nEND\r\nGO\r\n");
+        builder.append(");\r\nEND\r\nGO\r\n\r\n");
 
         builder.append(StringUtils.isBlank(strIndexs)? "" : strIndexs);
 
@@ -76,7 +76,7 @@ public class CreateTableSQLUtil {
             for(IndexBean i : indexList) {
                 builder.append("IF NOT EXISTS(SELECT * FROM sys.indexes WHERE name = '");
                 builder.append(i.getIndexPName());
-                builder.append("')\r\nBEGIN\r\n");
+                builder.append("')\r\nBEGIN\r\n\r\n");
                 builder.append("create");
                 switch (i.getIndexType()) {
                 case "0":
@@ -94,8 +94,8 @@ public class CreateTableSQLUtil {
                 builder.append(tablePName);
                 builder.append("](");
                 builder.append(i.getIndexColumn());
-                builder.append(");\r\n");
-                builder.append("END\r\nGO\r\n");
+                builder.append(");\r\n\r\n");
+                builder.append("END\r\nGO\r\n\r\n");
             }
         }
         return builder.toString();
