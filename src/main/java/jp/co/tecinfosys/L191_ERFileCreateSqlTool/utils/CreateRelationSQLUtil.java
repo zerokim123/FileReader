@@ -3,6 +3,8 @@ package jp.co.tecinfosys.L191_ERFileCreateSqlTool.utils;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.Const.ConstantCls;
 import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.RelationBean;
 
@@ -18,6 +20,7 @@ public class CreateRelationSQLUtil {
         builder.append(fkName);
         builder.append("' AND type = 'F')\r\n");
         builder.append("BEGIN\r\n");
+        builder.append("\r\n");
         builder.append("alter table [");
         builder.append(relationBean.getEntity2());
         builder.append("]\r\n");
@@ -32,13 +35,18 @@ public class CreateRelationSQLUtil {
         builder.append(relationBean.getFields1());
         builder.append(")\r\n");
 
-        if (ConstantCls.STR_NA.equals(relationBean.getCaption().substring(2, 3))) {
+        if (StringUtils.isNoneBlank(relationBean.getCaption()) && relationBean.getCaption().length() >= 4) {
 
-            builder.append(ConstantCls.RELATION_NA);
+            if (ConstantCls.STR_NA.equals(relationBean.getCaption().substring(2, 3))) {
 
-        } else {
-            builder.append(ConstantCls.RELATION_CA);
+                builder.append(ConstantCls.RELATION_NA);
+
+            } else {
+                builder.append(ConstantCls.RELATION_CA);
+            }
         }
+
+        builder.append("\r\n");
 
         return builder.toString();
 
