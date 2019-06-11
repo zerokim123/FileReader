@@ -1,5 +1,8 @@
 package jp.co.tecinfosys.L191_ERFileCreateSqlTool.Const;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ConstantCls {
 
     public final static String STR_EQUALS = "=";
@@ -27,21 +30,36 @@ public class ConstantCls {
 
     public final static String STR_CA = "CA";
     public final static String STR_NA = "NA";
-    public final static String RELATION_CA = "  on delete cascade\r\n" + "  on update cascade;\r\n"+"\r\nEND\r\n" + "GO";
-    public final static String RELATION_NA = "  on delete no action\r\n" + "  on update no action;\r\n"+"\r\nEND\r\n"
+    public final static String RELATION_CA = "  on delete cascade\r\n" + "  on update cascade;\r\n" + "\r\nEND\r\n"
+            + "GO";
+    public final static String RELATION_NA = "  on delete no action\r\n" + "  on update no action;\r\n" + "\r\nEND\r\n"
             + "GO";;
 
-    public final static String STR_SQL_HEADER = "----------------------------------------------------------------------------------------\r\n"
+    public final static String STR_SQL_HEADER =
+              "----------------------------------------------------------------------------------------\r\n"
             + "-- 開発履歴\r\n"
             + "----------------------------------------------------------------------------------------\r\n"
-            + "-- [Create]\r\n" + "-- DATE:2019/06/11\r\n" + "-- NAME:C.Jin(MTT)\r\n"
+            + "-- [Create]\r\n" + "-- DATE:" + new SimpleDateFormat("yyyy/MM/dd").format(new Date()) + "\r\n"
+            + "-- NAME:C.Jin(MTT)\r\n"
             + "----------------------------------------------------------------------------------------\r\n"
-            + "USE SX\r\n" + "GO\r\n" + "\r\n";
+            + "USE SX\r\n"
+            + "GO\r\n"
+            + "\r\n";
 
-    public final static String STR_TB_OPTION_START = "------------------------------------------------------------------------\r\n"
-            + "--変更箇所\r\n" + "------------------------------------------------------------------------\r\n";
-    public final static String STR_TB_OPTION_END = "------------------------------------------------------------------------\r\n"
-            + "\r\n" + "IF EXISTS(  SELECT  *\r\n" + "            FROM    sys.extended_properties AS S01\r\n"
+    public final static String STR_TB_OPTION_START =
+            "/**********************************************************************/\r\n"
+            +"--↓↓↓↓拡張プロパティ↓↓↓↓\r\n"
+            +"/**********************************************************************/"
+            + "DECLARE  @SchemaName        NVARCHAR(128)\r\n" + "        ,@TableName         NVARCHAR(128)\r\n"
+            + "        ,@TableLogicalName  NVARCHAR(128)\r\n"
+            +"\r\n"
+            + "------------------------------------------------------------------------\r\n"
+            + "--変更箇所\r\n"
+            + "------------------------------------------------------------------------\r\n";
+    public final static String STR_TB_OPTION_END =
+            "------------------------------------------------------------------------\r\n"
+            + "\r\n"
+            + "IF EXISTS(  SELECT  *\r\n" + "            FROM    sys.extended_properties AS S01\r\n"
             + "                    LEFT OUTER JOIN sys.tables AS S02\r\n"
             + "                     ON S01.major_id = S02.object_id\r\n"
             + "                    INNER JOIN sys.schemas AS S03\r\n"
