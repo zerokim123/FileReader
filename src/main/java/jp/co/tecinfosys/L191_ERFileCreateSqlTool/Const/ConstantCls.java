@@ -49,7 +49,7 @@ public class ConstantCls {
     public final static String STR_TB_OPTION_START =
             "/**********************************************************************/\r\n"
             +"--↓↓↓↓拡張プロパティ↓↓↓↓\r\n"
-            +"/**********************************************************************/"
+            +"/**********************************************************************/\r\n"
             + "DECLARE  @SchemaName        NVARCHAR(128)\r\n" + "        ,@TableName         NVARCHAR(128)\r\n"
             + "        ,@TableLogicalName  NVARCHAR(128)\r\n"
             +"\r\n"
