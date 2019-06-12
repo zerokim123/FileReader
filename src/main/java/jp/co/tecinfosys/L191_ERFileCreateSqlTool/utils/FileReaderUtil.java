@@ -67,7 +67,6 @@ public class FileReaderUtil {
 
                     readerLine ++;
 
-
                     if (str.equals("[Entity]")) {
 
                         skip = false;
@@ -105,7 +104,6 @@ public class FileReaderUtil {
                         wkLines = new ArrayList<>();
 
                     }
-
 
                 }
 
