@@ -43,6 +43,7 @@ public class FileReaderUtil {
 
                 while ((str = reader.readLine()) != null) {
 
+
                     if (str.equals("[Entity]")) {
 
                         skip = false;
@@ -54,13 +55,9 @@ public class FileReaderUtil {
                         skip = false;
                         readerType = "Relation";
 
-                    } else if (StringUtils.isBlank(str)) {
-
-                        skip = true;
-
                     }
 
-                    if (!skip) {
+                    if (!skip && StringUtils.isNotBlank(str)) {
 
                         wkLines.add(str);
 
@@ -68,15 +65,18 @@ public class FileReaderUtil {
 
                     if (str.startsWith("ZOrder")) {
 
-                        if (StringUtils.equals(readerType, "Entity")) {
+                        if (StringUtils.equals(readerType, "Entity") && wkLines.size() >0) {
 
                             entityInfo.add(wkLines);
 
-                        } else {
+                        } else if (StringUtils.equals(readerType, "Relation") && wkLines.size() >0){
 
                             relationInfo.add(wkLines);
 
                         }
+                        skip = true;
+
+                        readerType = "";
 
                         wkLines = new ArrayList<>();
 
