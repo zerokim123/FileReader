@@ -29,8 +29,10 @@ public class App
     public static void main( String[] args )
     {
 
-        String fromPath = args[0];
-        String toPath = args[1];
+//        String fromPath = args[0];
+//        String toPath = args[1];
+        String fromPath = "C:\\WORK\\00_DaysWork_Memo\\20190611\\Test\\MYA32240.10.85.00.Ｅ_会計2_L19_2.txt";
+        String toPath = "C:\\WORK\\00_DaysWork_Memo\\20190611\\Test\\output\\";
 
         List<String> fileList = getFileList(fromPath);
 

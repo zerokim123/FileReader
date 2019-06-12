@@ -39,9 +39,7 @@ public class FileReaderUtil {
 
                 String str;
 
-                List<String> entityLines = new ArrayList<>();
-
-                List<String> relationLines = new ArrayList<>();
+                List<String> wkLines = new ArrayList<>();
 
                 while ((str = reader.readLine()) != null) {
 
@@ -60,35 +58,32 @@ public class FileReaderUtil {
 
                         skip = true;
 
-                        if (entityLines.size() != 0) {
-
-                            entityInfo.add(entityLines);
-
-                        } else if (relationLines.size() != 0) {
-
-                            relationInfo.add(relationLines);
-
-                        }
-
-                        entityLines = new ArrayList<>();
-
-                        relationLines = new ArrayList<>();
                     }
 
                     if (!skip) {
 
+                        wkLines.add(str);
+
+                    }
+
+                    if (str.startsWith("ZOrder")) {
+
                         if (StringUtils.equals(readerType, "Entity")) {
 
-                            entityLines.add(str);
+                            entityInfo.add(wkLines);
 
                         } else {
 
-                            relationLines.add(str);
+                            relationInfo.add(wkLines);
+
                         }
+
+                        wkLines = new ArrayList<>();
 
                     }
 
                 }
+
                 readerFileBean.setError(false);
                 readerFileBean.setEntityInfo(entityInfo);
 
@@ -110,10 +105,10 @@ public class FileReaderUtil {
 
         List<RelationBean> relation = new ArrayList<RelationBean>();
 
-        for (List<String>wkList : relationInfo) {
+        for (List<String> wkList : relationInfo) {
             RelationBean wkRelation = new RelationBean();
 
-            for(String wkStr : wkList){
+            for (String wkStr : wkList) {
 
                 List<String> wkStrList = Arrays.asList(wkStr.split("="));
 
@@ -131,7 +126,7 @@ public class FileReaderUtil {
                     wkRelation.setFields2(wkStrList.get(1));
                     break;
                 case "Caption":
-                    wkRelation.setCaption(wkStrList.size()==2 ? wkStrList.get(1) : "");
+                    wkRelation.setCaption(wkStrList.size() == 2 ? wkStrList.get(1) : "");
                     break;
                 default:
                 }
