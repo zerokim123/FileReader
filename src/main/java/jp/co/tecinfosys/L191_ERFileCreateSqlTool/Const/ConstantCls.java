@@ -28,8 +28,10 @@ public class ConstantCls {
     public final static String STR_SQL_KEY_STRINDEXTYPE = "strIndexType";
     public final static String STR_SQL_KEY_INDEXCOLUMN = "indexColumn";
 
-    public final static String STR_CA = "CA";
-    public final static String STR_NA = "NA";
+    public final static String STR_C1CA = "C1CA";
+    public final static String STR_C2CA = "C2CA";
+    public final static String STR_C1NA = "C1NA";
+    public final static String STR_C2NA = "C2NA";
     public final static String RELATION_CA = "  on delete cascade\r\n" + "  on update cascade;\r\n" + "\r\nEND\r\n"
             + "GO";
     public final static String RELATION_NA = "  on delete no action\r\n" + "  on update no action;\r\n" + "\r\nEND\r\n"

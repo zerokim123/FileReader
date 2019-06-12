@@ -10,7 +10,7 @@ import jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean.RelationBean;
 
 public class CreateRelationSQLUtil {
 
-    public static String body (RelationBean relationBean) {
+    public static String body(RelationBean relationBean) {
 
         StringBuilder builder = new StringBuilder();
 
@@ -35,15 +35,14 @@ public class CreateRelationSQLUtil {
         builder.append(relationBean.getFields1());
         builder.append(")\r\n");
 
-        if (StringUtils.isNoneBlank(relationBean.getCaption()) && relationBean.getCaption().length() >= 4) {
+        if (StringUtils.equals(ConstantCls.STR_C1CA, relationBean.getCaption())
+                || StringUtils.equals(ConstantCls.STR_C2CA, relationBean.getCaption())) {
 
-            if (ConstantCls.STR_NA.equals(relationBean.getCaption().substring(2, 3))) {
+            builder.append(ConstantCls.RELATION_CA);
 
-                builder.append(ConstantCls.RELATION_NA);
-
-            } else {
-                builder.append(ConstantCls.RELATION_CA);
-            }
+        } else if (StringUtils.equals(ConstantCls.STR_C1NA, relationBean.getCaption())
+                || StringUtils.equals(ConstantCls.STR_C2NA, relationBean.getCaption())) {
+            builder.append(ConstantCls.RELATION_NA);
         }
 
         builder.append("\r\n");
@@ -52,7 +51,7 @@ public class CreateRelationSQLUtil {
 
     }
 
-    private static String createName (String entity1, String entity2) {
+    private static String createName(String entity1, String entity2) {
 
         List<String> wkStrentity1 = Arrays.asList(entity1.split("[$]"));
         List<String> wkStrentity2 = Arrays.asList(entity2.split("[$]"));
