@@ -35,6 +35,21 @@ public class FileReaderUtil {
 
             List<List<String>> relationInfo = new ArrayList<>();
 
+            long line = 0;
+
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(skipUTF8BOM(new FileInputStream(file)), StandardCharsets.UTF_8));) {
+
+                while ((reader.readLine()) != null) {
+                    line++;
+                }
+
+                reader.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 //            try (BufferedReader reader = new BufferedReader(
 //                    new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
             try (BufferedReader reader = new BufferedReader(
@@ -44,7 +59,13 @@ public class FileReaderUtil {
 
                 List<String> wkLines = new ArrayList<>();
 
-                while ((str = reader.readLine()) != null) {
+                long readerLine = 0;
+
+                while (readerLine < line) {
+
+                    str = reader.readLine();
+
+                    readerLine ++;
 
 
                     if (str.equals("[Entity]")) {
@@ -66,7 +87,7 @@ public class FileReaderUtil {
 
                     }
 
-                    if (str.startsWith("ZOrder")) {
+                    if (StringUtils.isBlank(str) || (readerLine == line)) {
 
                         if (StringUtils.equals(readerType, "Entity") && wkLines.size() >0) {
 
@@ -85,12 +106,15 @@ public class FileReaderUtil {
 
                     }
 
+
                 }
 
                 readerFileBean.setError(false);
                 readerFileBean.setEntityInfo(entityInfo);
 
                 readerFileBean.setRelationInfo(relation(relationInfo));
+
+                reader.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
