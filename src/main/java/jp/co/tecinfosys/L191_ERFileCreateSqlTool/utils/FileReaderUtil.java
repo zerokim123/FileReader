@@ -1,9 +1,10 @@
 package jp.co.tecinfosys.L191_ERFileCreateSqlTool.utils;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -34,8 +35,10 @@ public class FileReaderUtil {
 
             List<List<String>> relationInfo = new ArrayList<>();
 
+//            try (BufferedReader reader = new BufferedReader(
+//                    new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
             try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));) {
+                    new InputStreamReader(skipUTF8BOM(new FileInputStream(file)), StandardCharsets.UTF_8));) {
 
                 String str;
 
@@ -89,7 +92,7 @@ public class FileReaderUtil {
 
                 readerFileBean.setRelationInfo(relation(relationInfo));
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -138,6 +141,23 @@ public class FileReaderUtil {
 
         return relation;
 
+    }
+
+    /** UTF-8のBOMをスキップする */
+    public static InputStream skipUTF8BOM(InputStream is)throws Exception{
+       if( !is.markSupported() ){
+          // マーク機能が無い場合BufferedInputStreamを被せる
+          is= new BufferedInputStream(is);
+       }
+       is.mark(3); // 先頭にマークを付ける
+       if( is.available()>=3 ){
+          byte b[]={0,0,0};
+          is.read(b,0,3);
+          if( b[0]!=(byte)0xEF || b[1]!=(byte)0xBB || b[2]!=(byte)0xBF ){
+             is.reset();// BOMでない場合は先頭まで巻き戻す
+          }
+       }
+       return is;
     }
 
 }
