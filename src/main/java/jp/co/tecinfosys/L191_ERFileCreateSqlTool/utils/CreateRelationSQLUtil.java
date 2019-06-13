@@ -14,7 +14,7 @@ public class CreateRelationSQLUtil {
 
         StringBuilder builder = new StringBuilder();
 
-        String fkName = createName(relationBean.getEntity1(), relationBean.getEntity2());
+        String fkName = createName(relationBean.getEntity1(), relationBean.getEntity2(), relationBean.getSeq());
 
         builder.append("IF NOT EXISTS(SELECT * FROM sysobjects WHERE name = '");
         builder.append(fkName);
@@ -51,7 +51,7 @@ public class CreateRelationSQLUtil {
 
     }
 
-    private static String createName(String entity1, String entity2) {
+    private static String createName(String entity1, String entity2 , int seq) {
 
         List<String> wkStrentity1 = Arrays.asList(entity1.split("[$]"));
         List<String> wkStrentity2 = Arrays.asList(entity2.split("[$]"));
@@ -62,7 +62,8 @@ public class CreateRelationSQLUtil {
         builderName.append("_");
         builderName.append(wkStrentity1.get(0));
         builderName.append(wkStrentity1.get(1));
-        builderName.append("_01");
+        builderName.append("_");
+        builderName.append(String.format("%02d", seq));
         return builderName.toString();
     }
 
