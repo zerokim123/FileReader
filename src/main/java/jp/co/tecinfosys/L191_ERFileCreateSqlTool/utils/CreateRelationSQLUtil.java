@@ -51,17 +51,30 @@ public class CreateRelationSQLUtil {
 
     }
 
-    private static String createName(String entity1, String entity2 , int seq) {
+    private static String createName(String entity1, String entity2, int seq) {
 
-        List<String> wkStrentity1 = Arrays.asList(entity1.split("[$]"));
-        List<String> wkStrentity2 = Arrays.asList(entity2.split("[$]"));
         StringBuilder builderName = new StringBuilder();
         builderName.append("FK$");
-        builderName.append(wkStrentity2.get(0));
-        builderName.append(wkStrentity2.get(1));
+
+        if (entity2.indexOf("$") < 0) {
+            builderName.append(entity2);
+        } else {
+            List<String> wkStrentity2 = Arrays.asList(entity2.split("[$]"));
+            builderName.append(wkStrentity2.get(0));
+            builderName.append(wkStrentity2.get(1));
+        }
+
+
         builderName.append("_");
-        builderName.append(wkStrentity1.get(0));
-        builderName.append(wkStrentity1.get(1));
+
+        if (entity1.indexOf("$") < 0) {
+            builderName.append(entity1);
+        } else {
+            List<String> wkStrentity1 = Arrays.asList(entity1.split("[$]"));
+            builderName.append(wkStrentity1.get(0));
+            builderName.append(wkStrentity1.get(1));
+        }
+
         builderName.append("_");
         builderName.append(String.format("%02d", seq));
         return builderName.toString();

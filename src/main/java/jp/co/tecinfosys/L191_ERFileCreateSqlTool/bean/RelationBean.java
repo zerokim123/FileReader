@@ -2,26 +2,38 @@ package jp.co.tecinfosys.L191_ERFileCreateSqlTool.bean;
 
 public class RelationBean {
 
-    /** 関連テーブル１ */
+    /**
+     * 関連テーブル１
+     */
     private String Entity1;
 
-    /** 関連テーブル２ */
+    /**
+     * 関連テーブル２
+     */
     private String Entity2;
 
-    /** 関連キー１ */
+    /**
+     * 関連キー１
+     */
     private String Fields1;
 
-    /** 関連キー２ */
+    /**
+     * 関連キー２
+     */
     private String Fields2;
 
-    /** 関連関係 */
+    /**
+     * 関連関係
+     */
     private String Caption;
 
-    /** リレーション個数 */
+    /**
+     * リレーション個数
+     */
     private int seq = 1;
 
     public String getEntity1() {
-        return Entity1;
+        return Entity1 == null ? Entity1 : Entity1.replaceAll("【参照用】", "");
     }
 
     public void setEntity1(String entity1) {
@@ -29,7 +41,7 @@ public class RelationBean {
     }
 
     public String getEntity2() {
-        return Entity2;
+        return Entity2 == null ? Entity2 : Entity2.replaceAll("【参照用】", "");
     }
 
     public void setEntity2(String entity2) {
